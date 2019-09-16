@@ -1,11 +1,11 @@
-package com.lkx.unoin.config;
+package com.lkx.union.config;
 
-import com.google.common.base.Predicate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
-import springfox.documentation.RequestHandler;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.VendorExtension;
@@ -36,13 +36,17 @@ public class SwaggerConfig {
                 apiInfo(apiInfo())
                 //是否启用
                 .enable(flag)
-                .select().apis(input -> {
-                    System.out.println(input);
-                    return true;
-                }).paths(input -> {
-
-                    return true;
-                }).build();
+                //RequestHandlerSelectors  配置要扫描的接口的方式
+                //RequestHandlerSelectors.basePackage():扫描指定包
+                //RequestHandlerSelectors.any():扫描所有包
+                //RequestHandlerSelectors.none():不扫描
+                //RequestHandlerSelectors.withClassAnnotation():扫描类上指定的注解
+                //RequestHandlerSelectors.withMethodAnnotation()：扫描方法上指定的注解
+                .select().apis(RequestHandlerSelectors.basePackage("com.lkx.union.controller"))
+                //指定扫描指定的路径,注意这里是请求的路径
+                //PathSelectors.ant("/*"): 指定的路径规则
+                .paths(PathSelectors.any())
+                .build();
 
     }
 
