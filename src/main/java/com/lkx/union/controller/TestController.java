@@ -1,6 +1,12 @@
 package com.lkx.union.controller;
 
+import com.lkx.union.form.UserForm;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,16 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/test")
+@Api(tags = "测试类")
 public class TestController {
 
     @GetMapping("/testMethod")
-    public String test(){
+    @ApiOperation("测试方法")
+    public String test(@RequestBody @Validated UserForm userForm){
 
         return "ok";
     }
 
     @GetMapping("/test")
-    public String test2(){
+    @ApiOperation("测试方法2")
+    public String test2(@ApiParam("用户名") String username){
 
         return "ok";
     }

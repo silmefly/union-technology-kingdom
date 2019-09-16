@@ -36,6 +36,7 @@ public class SwaggerConfig {
                 apiInfo(apiInfo())
                 //是否启用
                 .enable(flag)
+                .groupName("test")
                 //RequestHandlerSelectors  配置要扫描的接口的方式
                 //RequestHandlerSelectors.basePackage():扫描指定包
                 //RequestHandlerSelectors.any():扫描所有包
