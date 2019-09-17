@@ -1,14 +1,14 @@
 package com.lkx.union.controller;
 
+import com.lkx.union.entity.SysUserEntity;
 import com.lkx.union.form.UserForm;
+import com.lkx.union.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName: TestController
@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "测试类")
 public class TestController {
 
+    @Autowired
+    private SysUserService sysUserService;
+
     @GetMapping("/testMethod")
     @ApiOperation("测试方法")
     public String test(@RequestBody @Validated UserForm userForm){
@@ -32,8 +35,8 @@ public class TestController {
 
     @GetMapping("/test")
     @ApiOperation("测试方法2")
-    public String test2(@ApiParam("用户名") String username){
-
-        return "ok";
+    public String test2(@RequestParam(value = "用户名",required = false) String username){
+        SysUserEntity sysUser = sysUserService.getById(1);
+        return sysUser.getSysUserName();
     }
 }
